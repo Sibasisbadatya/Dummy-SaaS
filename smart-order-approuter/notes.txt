@@ -1,0 +1,3 @@
+    // The callback request is typically authenticated using a service-to-service OAuth token, 
+    // not a user's XSUAA login token.
+    // Your application should validate that token before trusting the request.
