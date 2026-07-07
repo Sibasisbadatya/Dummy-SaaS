@@ -1,4 +1,4 @@
-ID: client1
+ID: Product
 _schema-version: "2.1"
 version: 1.0.0
 
@@ -6,37 +6,32 @@ parameters:
   deploy_mode: html5-repo
 
 modules:
-  - name: client1-approuter
+  - name: product
     type: approuter.nodejs
     path: smart-order-approuter
     parameters:
       memory: 256M
       disk-quota: 512M
     properties:
-      TENANT_HOST_PATTERN: "^(.*)-${default-uri}"
-    provides:
-      - name: app-api
-        properties:
-          app-url: ${default-url}
+          SEND_XFRAMEOPTIONS: false
     requires:
       - name: cw-itm-Html5RepoRuntime
       - name: cw-itm-xsuaa
       - name: cw-itm-connectivity
-      - name: cw-itm-saas-provisioning
 
-  - name: client1-deployer
+  - name: product-deployer
     type: com.sap.html5.application-content
     path: smart-order-ui-deployer
     requires:
       - name: cw-itm-Html5RepoHost
     build-parameters:
       requires:
-        - name: client1-webapp
+        - name: product-webapp
           artifacts:
             - "./*"
-          target-path: resources/client1-webapp
+          target-path: resources/product-webapp
 
-  - name: client1-webapp
+  - name: product-webapp
     type: html5
     path: smart-order-webapp
     build-parameters:
@@ -50,14 +45,18 @@ modules:
 resources:
   # Bind to existing service instances
   - name: cw-itm-Html5RepoRuntime
-    type: org.cloudfoundry.existing-service
+    type: org.cloudfoundry.managed-service
     parameters:
       service-name: cw-itm-Html5RepoRuntime
+      service-plan: app-runtime
+      service: html5-apps-repo
 
   - name: cw-itm-Html5RepoHost
-    type: org.cloudfoundry.existing-service
+    type: org.cloudfoundry.managed-service
     parameters:
       service-name: cw-itm-Html5RepoHost
+      service-plan: app-host
+      service: html5-apps-repo
 
   - name: cw-itm-xsuaa
     type: org.cloudfoundry.managed-service
@@ -68,23 +67,9 @@ resources:
       path: ./xs-security.json
 
   - name: cw-itm-connectivity
-    type: org.cloudfoundry.existing-service
+    type: org.cloudfoundry.managed-service
     parameters:
       service-name: cw-itm-connectivity
+      service-plan: lite
+      service: connectivity
 
-  - name: cw-itm-saas-provisioning
-    type: org.cloudfoundry.managed-service
-    requires:
-      - name: app-api
-    parameters:
-      service: saas-registry
-      service-plan: application
-      config:
-        appName: Client1SmartOrderApp
-        xsappname: cw-itm-xsuaa
-        displayName: "Client1 Smart Order App"
-        description: "Multi-tenant Smart Order Application"
-        category: "SaaS Application"
-        appUrls:
-          getDependencies: ~{app-api/app-url}/callback/v1.0/dependencies
-          onSubscription: ~{app-api/app-url}/callback/v1.0/tenants/{tenantId}

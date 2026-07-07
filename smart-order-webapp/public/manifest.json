@@ -1,6 +1,6 @@
 {
-  "short_name": "Client1",
-  "name": "Client1",
+  "short_name": "Product",
+  "name": "Product",
   "icons": [
     {
       "src": "favicon.ico",
@@ -24,7 +24,7 @@
   "background_color": "#ffffff",
 
   "sap.app": {
-    "id": "client1",
+    "id": "product",
     "applicationVersion": {
       "version": "1.0.0"
     }

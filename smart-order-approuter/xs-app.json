@@ -14,7 +14,7 @@
     },
     {
       "source": "^(.*)$",
-      "target": "client1/$1",
+      "target": "product/$1",
       "service": "html5-apps-repo-rt",
       "authenticationType": "xsuaa"
     }
