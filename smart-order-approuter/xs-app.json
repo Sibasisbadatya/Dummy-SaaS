@@ -5,7 +5,8 @@
     {
       "source": "^/callback/v1.0/(.*)",
       "localDir": ".",
-      "authenticationType": "none"
+      "authenticationType": "none",
+      "csrfProtection": false
     },
     {
       "source": "^/user-api(.*)",

@@ -5,14 +5,14 @@ const ar = approuter();
 ar.beforeRequestHandler.use('/callback/v1.0/tenants/*', (req, res) => {
   const tenantId = req.params[0];
   
-  // Security: Validate authorization header
+  // Validate authorization header exists
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     console.error('Missing or invalid authorization header');
     return res.status(401).json({ error: 'Unauthorized' });
   }
   
-  // Additional security: Check tenant ID format
+  // Validate tenant ID format
   if (!tenantId || tenantId.length < 5) {
     console.error('Invalid tenant ID format');
     return res.status(400).json({ error: 'Invalid tenant ID' });
@@ -33,13 +33,14 @@ ar.beforeRequestHandler.use('/callback/v1.0/tenants/*', (req, res) => {
 
 // Dependencies callback - returns required service dependencies
 ar.beforeRequestHandler.use('/callback/v1.0/dependencies', (req, res) => {
-  // Security: Validate authorization header
+  // Validate authorization header exists
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     console.error('Missing or invalid authorization header');
     return res.status(401).json({ error: 'Unauthorized' });
   }
   
+  console.log('Dependencies callback invoked');
   res.status(200).json([]);
 });
 

@@ -1,7 +1,7 @@
 {
   "xsappname": "cw-itm-xsuaa",
-  "tenant-mode": "dedicated",
-  "description": "Security profile of called application",
+  "tenant-mode": "shared",
+  "description": "ITM Multi-Tenant Application",
   "scopes": [
     {
       "name": "uaa.user",
