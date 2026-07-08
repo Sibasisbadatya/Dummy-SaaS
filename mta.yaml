@@ -29,7 +29,7 @@ modules:
         - name: product-webapp
           artifacts:
             - "./*"
-          target-path: resources/product-webapp
+          target-path: resources/product
 
   - name: product-webapp
     type: html5
