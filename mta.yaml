@@ -23,7 +23,6 @@ modules:
       - name: cw-itm-Html5RepoRuntime
       - name: cw-itm-xsuaa
       - name: cw-itm-connectivity
-      - name: cw-itm-saas-registry
 
   - name: product-deployer
     type: com.sap.html5.application-content
@@ -65,10 +64,10 @@ resources:
       service: html5-apps-repo
 
   - name: cw-itm-xsuaa
-    type: org.cloudfoundry.managed-service
+    type: org.cloudfoundry.existing-service
     parameters:
       service: xsuaa
-      service-plan: application
+      service-plan: broker
       service-name: cw-itm-xsuaa
       path: ./xs-security.json
 
@@ -78,23 +77,4 @@ resources:
       service-name: cw-itm-connectivity
       service-plan: lite
       service: connectivity
-
-  - name: cw-itm-saas-registry
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: saas-registry
-      service-plan: application
-      service-name: cw-itm-saas-registry
-      config:
-        appName: product
-        displayName: ITM SaaS Product
-        description: ITM Multi-Tenant Application
-        category: Partner Solutions
-        xsappname: cw-itm-xsuaa
-        appUrls:
-          getDependencies: ~{product-url/url}/callback/v1.0/dependencies
-          onSubscription: ~{product-url/url}/callback/v1.0/tenants/{tenantId}
-    requires:
-      - name: cw-itm-xsuaa
-      - name: product-url
 
