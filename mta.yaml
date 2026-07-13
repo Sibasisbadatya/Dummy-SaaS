@@ -1,4 +1,4 @@
-ID: Product
+ID: itm-poc-ui
 _schema-version: "2.1"
 version: 1.0.0
 
@@ -6,9 +6,9 @@ parameters:
   deploy_mode: html5-repo
 
 modules:
-  - name: product
+  - name: itm-poc-ui
     type: approuter.nodejs
-    path: smart-order-approuter
+    path: itm-poc-approuter
     parameters:
       memory: 256M
       disk-quota: 512M
@@ -16,7 +16,7 @@ modules:
           SEND_XFRAMEOPTIONS: false
           TENANT_HOST_PATTERN: "^(.*)-${default-uri}"
     provides:
-      - name: product-url
+      - name: itm-poc-ui-url
         properties:
           url: ${default-url}
     requires:
@@ -24,21 +24,21 @@ modules:
       - name: cw-itm-xsuaa
       - name: cw-itm-connectivity
 
-  - name: product-deployer
+  - name: itm-poc-ui-deployer
     type: com.sap.html5.application-content
-    path: smart-order-ui-deployer
+    path: itm-poc-ui-deployer
     requires:
       - name: cw-itm-Html5RepoHost
     build-parameters:
       requires:
-        - name: product-webapp
+        - name: itm-poc-ui-webapp
           artifacts:
             - "./*"
-          target-path: resources/product
+          target-path: resources/itm-poc-ui
 
-  - name: product-webapp
+  - name: itm-poc-ui-webapp
     type: html5
-    path: smart-order-webapp
+    path: itm-poc-webapp
     build-parameters:
       builder: custom
       commands:

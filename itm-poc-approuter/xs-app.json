@@ -15,7 +15,7 @@
     },
     {
       "source": "^(.*)$",
-      "target": "product/$1",
+      "target": "itm-poc-ui/$1",
       "service": "html5-apps-repo-rt",
       "authenticationType": "xsuaa"
     }
