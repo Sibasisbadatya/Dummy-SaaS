@@ -1,0 +1,40 @@
+{
+  "xsappname": "cw-itm-xsuaa",
+  "tenant-mode": "shared",
+  "description": "ITM Multi-Tenant Application",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Callback",
+      "description": "Callback scope",
+      "grant-as-authority-to-apps": [
+        "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
+      ]
+    },
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Callback",
+      "description": "Callback Role",
+      "scope-references": ["$XSAPPNAME.Callback"]
+    },
+    {
+      "name": "Token_Exchange",
+      "description": "Token Exchange",
+      "scope-references": [
+        "uaa.user"
+      ]
+    }
+  ],
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "https://*.cfapps.eu10-004.hana.ondemand.com/login/callback",
+      "https://**.applicationstudio.cloud.sap/**",
+      "http://localhost:5000/login/callback"
+    ],
+    "credential-types": ["binding-secret"]
+  }
+}
